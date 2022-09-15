@@ -11,4 +11,5 @@ cat "$inputDirectory"/*/failed_login_data.txt | sed -n -E "s/^[A-Za-z]* [0-9]{1,
 
 # Sort the temporary file by username, then extract the counts for each username with the uniq command
 # Then it pipes that counted and sorted output into a sed command which creates the javascript body for the final output.
-sort "$tempFile" | uniq -c | sed -n -E "s/^[ ]+([0-9]+) ([A-Za-z0-9_-]*)$/data.addRow(['\2', \1]);/p" > testFile.txt
+# Lastly, pipe the output of the sed command into a wrap_contents call.
+sort "$tempFile" | uniq -c | sed -n -E "s/^[ ]+([0-9]+) ([A-Za-z0-9_-]*)$/data.addRow(['\2', \1]);/p" | bin/wrap_contents.sh /dev/stdin html_components/username_dist username_dist.html
