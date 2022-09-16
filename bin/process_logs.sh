@@ -3,12 +3,11 @@
 
 # Collect the input files in a list, named inputFiles
 inputFiles=("$@")
-echo "$inputFiles"
 
 # Make a scratch directory to work within
 tempDir=$(mktemp -d)
 
-for logFile in "$inputFiles"
+for logFile in "${inputFiles[@]}"
 do
   # Get the base filename without extension (eg. "discovery_secure.tgz" -> "discovery")
   baseFileName="${logFile%_secure.*}"
